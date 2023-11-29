@@ -1,9 +1,9 @@
 
 prettify_colnames <- function(df, prefix = 'pr_'){
   df %>%
-    rename_with(., ~str_replace_all(., prefix, ' ')) %>%
-    rename_with(., ~str_replace_all(., '_', ' ')) %>%
-    rename_all(stringr::str_to_title)
+    dplyr::rename_with(., ~stringr::str_replace_all(., prefix, ' ')) %>%
+    dplyr::rename_with(., ~stringr::str_replace_all(., '_', ' ')) %>%
+    dplyr::rename_all(stringr::str_to_title)
 }
 
 
