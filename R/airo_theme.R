@@ -1,11 +1,16 @@
 
 #' Sets airo theme
 #' @import ggplot2
+#' @import showtext
 #' @return nothing
 #' @export
 #'
 #' @examples airo_theme()
 airo_theme <- function(){
+
+  sysfonts::font_add_google('Roboto Condensed', 'Roboto Condensed')
+  showtext_auto()
+  showtext_opts(dpi = 200)
 ##### load default theme for ggplot and vector for colors from darjeeling1 ####
 theme_set(theme_classic(base_size = 12) %+replace% theme(
   # axis.line.y = element_line(colour = "black", size = 0.2),
