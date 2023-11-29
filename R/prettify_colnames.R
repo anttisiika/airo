@@ -1,3 +1,4 @@
+#'
 #' Prettifies colnames
 #'
 #' This function prettifies colnames for quick plotting/tables
@@ -5,17 +6,21 @@
 #' an optional prefix.
 #'
 #'  @param df input dataframe
-#'  @prefix prefix to remove is set to remove processed 'pr_'
+#'  @param prefix prefix to remove is set to remove processed 'pr_'
 #'
-#'  @export
+#'  @return df
+#'
+#'
 #'  @examples
 #'  prettify_colnames(df, prefix = 'hej)
 #'
-prettify_colnames <- function(df, prefix = 'pr_'){
+#' @export
+#'
+prettify_colnames <-
+  function(df, prefix = 'pr_'){
+
   df %>%
     dplyr::rename_with(., ~stringr::str_replace_all(., prefix, ' ')) %>%
     dplyr::rename_with(., ~stringr::str_replace_all(., '_', ' ')) %>%
     dplyr::rename_all(stringr::str_to_title)
 }
-
-

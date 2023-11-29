@@ -13,9 +13,10 @@ an optional prefix.
 }
 \details{
 @param df input dataframe
-@prefix prefix to remove is set to remove processed 'pr_'
+@param prefix prefix to remove is set to remove processed 'pr_'
 
-@export
+@return df
+
 @examples
 prettify_colnames(df, prefix = 'hej)
 }
