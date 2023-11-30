@@ -1,18 +1,20 @@
 #' Plot volcano
 #'
-#' Takes a df which is output from limma (should have cols log_fc and p_value)
+#' Takes a df which is output from limma (should have cols for fold_change and p_value,
+#' and label)).
 #'
-#' @param dataframe results form limma (or equivalent with col log_fc and p_value/adj_p_value and label)
+#' @param dataframe results form limma (or equivalent with col for fc and p_value/adj_p_value and label)
 #' @param adjusted adjusted or unadjusted p values
 #' @param nudge_y if labels should be nudged.
 #' @param legend.position where the legend should be
 #'
-#' @return ggplot2.
+#' @import ggplot2
+#' @return ggplot2 plot/object
 #' @export
 #'
 #' @examples volcanoplot(limma_results)
 volcano_plot <-
-  function(dataframe, adjusted = TRUE, nudge_y = 0.5,
+  function(dataframe, fold_change, pvalue, label, adjusted = TRUE, nudge_y = 0.5,
            legend.position = 'bottom_left') {
 
     # Legend justiction ------------------------------------------------------------
@@ -40,12 +42,12 @@ volcano_plot <-
     # plot adjusted or unadjusted p values and change labels -----------------------
     if (!adjusted) {
       p <-
-        ggplot(dataframe, aes(log_fc, -log10(p_value), fill = sign_direction_unadj)) +
+        ggplot(dataframe, aes({{ fold_change }}, -log10({{ p_value }}), fill = sign_direction_unadj)) +
         labs(y = bquote( ~ 'Unadjusted P-value' ~ (-Log[10])),
              x = bquote( ~ 'Fold-change' ~ (Log[2])))
     } else {
       p <-
-        ggplot(dataframe, aes(log_fc, -log10(adj_p_val), fill = sign_direction_adj)) +
+        ggplot(dataframe, aes({{ fold_change }}, -log10({{ p_value }}), fill = sign_direction_adj)) +
         labs(y = bquote( ~ 'FDR-corrected P-value' ~ (-Log[10])),
              x = bquote( ~ 'Fold-change' ~ (Log[2])))
     }
@@ -53,12 +55,12 @@ volcano_plot <-
     # make the rest of the plot ----------------------------------------------------
     p <- p + geom_hline(yintercept = -log10(0.05), lty = 2, alpha = 0.7, size = 0.6) +
 
-      geom_point(aes(shape = is.na(text)), fill = NA, size = 3) +
+      geom_point(aes(shape = is.na({{label}})), fill = NA, size = 3) +
       scale_shape_manual(values = c(21, NA))+
       geom_point(shape = 21) +
       guides(shape = 'none') +
 
-      ggrepel::geom_text_repel(aes(label = text),
+      ggrepel::geom_text_repel(aes(label = {{label}}),
                                min.segment.length = 0,
                                box.padding = 0.5,
                                point.padding = 0.5,

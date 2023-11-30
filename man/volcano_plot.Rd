@@ -6,13 +6,16 @@
 \usage{
 volcano_plot(
   dataframe,
+  fold_change,
+  pvalue,
+  label,
   adjusted = TRUE,
   nudge_y = 0.5,
   legend.position = "bottom_left"
 )
 }
 \arguments{
-\item{dataframe}{results form limma (or equivalent with col log_fc and p_value/adj_p_value and label)}
+\item{dataframe}{results form limma (or equivalent with col for fc and p_value/adj_p_value and label)}
 
 \item{adjusted}{adjusted or unadjusted p values}
 
@@ -21,10 +24,11 @@ volcano_plot(
 \item{legend.position}{where the legend should be}
 }
 \value{
-ggplot2.
+ggplot2 plot/object
 }
 \description{
-Takes a df which is output from limma (should have cols log_fc and p_value)
+Takes a df which is output from limma (should have cols for fold_change and p_value,
+and label)).
 }
 \examples{
 volcanoplot(limma_results)
