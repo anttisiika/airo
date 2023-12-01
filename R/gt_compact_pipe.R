@@ -7,8 +7,9 @@
 #' @export
 #'
 #'
+#'
 gt_compact_pipe <- function(data){
-data %>%
+  data %>%
 gt::tab_options(table.font.names = "Roboto Condensed") %>%
 
   gt::tab_options(
